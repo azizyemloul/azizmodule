@@ -1,0 +1,156 @@
+* Test de création de module dans odoo
+
+En suivant la documentation, la commande ...
+#+BEGIN_SRC sh
+$ ./odoo.py scaffold azizmodule addons
+#+END_SRC
+
+Crée un dossier ~addons~ à la racine de ~odoo~ au lieu de ~openrp/addons/~
+
+Une solution de contournement a été de créer un lien symbolique dans le dossier odoo/openrp/addons vers le dossier créé dans odoo/addons
+#+BEGIN_SRC
+$ pwd
+/home/vagrant/odoo/openrp/addons
+$ ln -s /home/vagrant/odoo/addons/azizmodule .
+#+END_SRC
+
+* Test de chargement de module dans l'interface de gestion
+
+Arrivé à la rubrique relational fields du tuto, les choses commencent à devenir obscures.
+
+Je préfère faire une halte et voir ce qu'il en est dans l'interface, si mon module peut être chargé à ce stade.
+
+Odoo se plaint de ne pas reconnaitre le module azizmodule.course.
+
+Quelque chose m'a peut-être échappé en suivant le tuto. Il s'agit certainement d'un B.A.BA du python.
+
+#+BEGIN_EXAMPLE
+2015-11-16 16:35:32,089 3259 INFO odoo2 openerp.modules.loading: loading 1 modules...
+2015-11-16 16:35:32,101 3259 INFO odoo2 openerp.modules.loading: 1 modules loaded in 0.01s, 0 queries
+2015-11-16 16:35:32,545 3259 INFO odoo2 openerp.modules.loading: loading 41 modules...
+2015-11-16 16:35:32,586 3259 INFO odoo2 openerp.modules.loading: 41 modules loaded in 0.04s, 0 queries
+2015-11-16 16:35:32,595 3259 INFO odoo2 openerp.modules.loading: loading 42 modules...
+2015-11-16 16:35:33,221 3259 WARNING odoo2 openerp.fields: Field azizmodule.session.course_id with unknown comodel_name 'azizmodule.course'
+2015-11-16 16:35:33,477 3259 INFO odoo2 openerp.modules.module: module azizmodule: creating or updating database tables
+2015-11-16 16:35:33,511 3259 INFO odoo2 openerp.modules.loading: loading azizmodule/templates.xml
+2015-11-16 16:35:33,520 3259 INFO odoo2 openerp.modules.loading: loading azizmodule/views/azizmodule.xml
+2015-11-16 16:35:33,541 3259 ERROR odoo2 openerp.addons.base.ir.ir_ui_view: Model not found: azizmodule.course
+
+Error context:
+View `course.form`
+[view_id: 616, xml_id: n/a, model: azizmodule.course, parent_id: n/a]
+2015-11-16 16:35:33,545 3259 ERROR odoo2 openerp.http: Exception during JSON request handling.
+Traceback (most recent call last):
+  File "/vagrant/odoo/openerp/http.py", line 537, in _handle_exception
+    return super(JsonRequest, self)._handle_exception(exception)
+  File "/vagrant/odoo/openerp/http.py", line 574, in dispatch
+    result = self._call_function(**self.params)
+  File "/vagrant/odoo/openerp/http.py", line 310, in _call_function
+    return checked_call(self.db, *args, **kwargs)
+  File "/vagrant/odoo/openerp/service/model.py", line 118, in wrapper
+    return f(dbname, *args, **kwargs)
+  File "/vagrant/odoo/openerp/http.py", line 307, in checked_call
+    return self.endpoint(*a, **kw)
+  File "/vagrant/odoo/openerp/http.py", line 803, in __call__
+    return self.method(*args, **kw)
+  File "/vagrant/odoo/openerp/http.py", line 403, in response_wrap
+    response = f(*args, **kw)
+  File "/vagrant/odoo/openerp/addons/web/controllers/main.py", line 948, in call_button
+    action = self._call_kw(model, method, args, {})
+  File "/vagrant/odoo/openerp/addons/web/controllers/main.py", line 936, in _call_kw
+    return getattr(request.registry.get(model), method)(request.cr, request.uid, *args, **kwargs)
+  File "/vagrant/odoo/openerp/api.py", line 250, in wrapper
+    return old_api(self, *args, **kwargs)
+  File "/vagrant/odoo/openerp/addons/base/module/module.py", line 447, in button_immediate_install
+    return self._button_immediate_function(cr, uid, ids, self.button_install, context=context)
+  File "/vagrant/odoo/openerp/api.py", line 250, in wrapper
+    return old_api(self, *args, **kwargs)
+  File "/vagrant/odoo/openerp/addons/base/module/module.py", line 495, in _button_immediate_function
+    registry = openerp.modules.registry.RegistryManager.new(cr.dbname, update_module=True)
+  File "/vagrant/odoo/openerp/modules/registry.py", line 370, in new
+    openerp.modules.load_modules(registry._db, force_demo, status, update_module)
+  File "/vagrant/odoo/openerp/modules/loading.py", line 355, in load_modules
+    loaded_modules, update_module)
+  File "/vagrant/odoo/openerp/modules/loading.py", line 255, in load_marked_modules
+    loaded, processed = load_module_graph(cr, graph, progressdict, report=report, skip_modules=loaded_modules, perform_checks=perform_checks)
+  File "/vagrant/odoo/openerp/modules/loading.py", line 176, in load_module_graph
+    _load_data(cr, module_name, idref, mode, kind='data')
+  File "/vagrant/odoo/openerp/modules/loading.py", line 118, in _load_data
+    tools.convert_file(cr, module_name, filename, idref, mode, noupdate, kind, report)
+  File "/vagrant/odoo/openerp/tools/convert.py", line 901, in convert_file
+    convert_xml_import(cr, module, fp, idref, mode, noupdate, report)
+  File "/vagrant/odoo/openerp/tools/convert.py", line 987, in convert_xml_import
+    obj.parse(doc.getroot(), mode=mode)
+  File "/vagrant/odoo/openerp/tools/convert.py", line 853, in parse
+    self._tags[rec.tag](self.cr, rec, n, mode=mode)
+  File "/vagrant/odoo/openerp/tools/convert.py", line 763, in _tag_record
+    id = self.pool['ir.model.data']._update(cr, self.uid, rec_model, self.module, res, rec_id or False, not self.isnoupdate(data_node), noupdate=self.isnoupdate(data_node), mode=self.mode, context=rec_context )
+  File "/vagrant/odoo/openerp/api.py", line 250, in wrapper
+    return old_api(self, *args, **kwargs)
+  File "/vagrant/odoo/openerp/addons/base/ir/ir_model.py", line 1052, in _update
+    res_id = model_obj.create(cr, uid, values, context=context)
+  File "/vagrant/odoo/openerp/api.py", line 250, in wrapper
+    return old_api(self, *args, **kwargs)
+  File "/vagrant/odoo/openerp/addons/base/ir/ir_ui_view.py", line 255, in create
+    context=context)
+  File "/vagrant/odoo/openerp/api.py", line 250, in wrapper
+    return old_api(self, *args, **kwargs)
+  File "/vagrant/odoo/openerp/api.py", line 345, in old_api
+    result = method(recs, *args, **kwargs)
+  File "/vagrant/odoo/openerp/models.py", line 4092, in create
+    record = self.browse(self._create(old_vals))
+  File "/vagrant/odoo/openerp/api.py", line 248, in wrapper
+    return new_api(self, *args, **kwargs)
+  File "/vagrant/odoo/openerp/api.py", line 481, in new_api
+    result = method(self._model, cr, uid, *args, **kwargs)
+  File "/vagrant/odoo/openerp/models.py", line 4283, in _create
+    recs._validate_fields(vals)
+  File "/vagrant/odoo/openerp/api.py", line 248, in wrapper
+    return new_api(self, *args, **kwargs)
+  File "/vagrant/odoo/openerp/models.py", line 1272, in _validate_fields
+    raise ValidationError('\n'.join(errors))
+ParseError: "ValidateError
+Field(s) `arch` failed against a constraint: Invalid view definition
+
+Error details:
+Model not found: azizmodule.course
+
+Error context:
+View `course.form`
+[view_id: 616, xml_id: n/a, model: azizmodule.course, parent_id: n/a]" while parsing /vagrant/odoo/openerp/addons/azizmodule/views/azizmodule.xml:5, near
+<record model="ir.ui.view" id="course_form_view">
+      <field name="name">course.form</field>
+      <field name="model">azizmodule.course</field>
+      <field name="arch" type="xml">
+        <form string="Course Form">
+          <sheet>
+            <group>
+              <field name="name"/>
+              <field name="responsible_id"/>
+              <!-- <field name="description"/> -->
+            </group>
+            <notebook>
+              <page string="Description">
+                <field name="description"/>
+              </page>
+
+              <page string="Sessions">
+                <field name="session_ids">
+                  <tree string="Registered sessions">
+                    <field name="name"/>
+                    <field name="instructor_id"/>
+                  </tree>
+                </field>
+              </page>
+
+              <page string="About">
+                This is an example of notebooks
+              </page>
+
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+#+END_EXAMPLE
