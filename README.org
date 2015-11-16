@@ -23,23 +23,22 @@ Je préfère faire une halte et voir ce qu'il en est dans l'interface, si mon mo
 Odoo se plaint de ne pas reconnaitre le module azizmodule.course.
 
 Quelque chose m'a peut-être échappé en suivant le tuto. Il s'agit certainement d'un B.A.BA du python.
-
 #+BEGIN_EXAMPLE
-2015-11-16 16:35:32,089 3259 INFO odoo2 openerp.modules.loading: loading 1 modules...
-2015-11-16 16:35:32,101 3259 INFO odoo2 openerp.modules.loading: 1 modules loaded in 0.01s, 0 queries
-2015-11-16 16:35:32,545 3259 INFO odoo2 openerp.modules.loading: loading 41 modules...
-2015-11-16 16:35:32,586 3259 INFO odoo2 openerp.modules.loading: 41 modules loaded in 0.04s, 0 queries
-2015-11-16 16:35:32,595 3259 INFO odoo2 openerp.modules.loading: loading 42 modules...
-2015-11-16 16:35:33,221 3259 WARNING odoo2 openerp.fields: Field azizmodule.session.course_id with unknown comodel_name 'azizmodule.course'
-2015-11-16 16:35:33,477 3259 INFO odoo2 openerp.modules.module: module azizmodule: creating or updating database tables
-2015-11-16 16:35:33,511 3259 INFO odoo2 openerp.modules.loading: loading azizmodule/templates.xml
-2015-11-16 16:35:33,520 3259 INFO odoo2 openerp.modules.loading: loading azizmodule/views/azizmodule.xml
-2015-11-16 16:35:33,541 3259 ERROR odoo2 openerp.addons.base.ir.ir_ui_view: Model not found: azizmodule.course
+2015-11-16 17:54:01,166 3259 INFO odoo2 openerp.modules.loading: loading 1 modules...
+2015-11-16 17:54:01,178 3259 INFO odoo2 openerp.modules.loading: 1 modules loaded in 0.01s, 0 queries
+2015-11-16 17:54:01,617 3259 INFO odoo2 openerp.modules.loading: loading 41 modules...
+2015-11-16 17:54:01,659 3259 INFO odoo2 openerp.modules.loading: 41 modules loaded in 0.04s, 0 queries
+2015-11-16 17:54:01,669 3259 INFO odoo2 openerp.modules.loading: loading 42 modules...
+2015-11-16 17:54:02,304 3259 WARNING odoo2 openerp.fields: Field azizmodule.session.course_id with unknown comodel_name 'azizmodule.course'
+2015-11-16 17:54:02,556 3259 INFO odoo2 openerp.modules.module: module azizmodule: creating or updating database tables
+2015-11-16 17:54:02,587 3259 INFO odoo2 openerp.modules.loading: loading azizmodule/templates.xml
+2015-11-16 17:54:02,595 3259 INFO odoo2 openerp.modules.loading: loading azizmodule/views/azizmodule.xml
+2015-11-16 17:54:02,617 3259 ERROR odoo2 openerp.addons.base.ir.ir_ui_view: Model not found: azizmodule.course
 
 Error context:
 View `course.form`
-[view_id: 616, xml_id: n/a, model: azizmodule.course, parent_id: n/a]
-2015-11-16 16:35:33,545 3259 ERROR odoo2 openerp.http: Exception during JSON request handling.
+[view_id: 617, xml_id: n/a, model: azizmodule.course, parent_id: n/a]
+2015-11-16 17:54:02,621 3259 ERROR odoo2 openerp.http: Exception during JSON request handling.
 Traceback (most recent call last):
   File "/vagrant/odoo/openerp/http.py", line 537, in _handle_exception
     return super(JsonRequest, self)._handle_exception(exception)
@@ -117,7 +116,7 @@ Model not found: azizmodule.course
 
 Error context:
 View `course.form`
-[view_id: 616, xml_id: n/a, model: azizmodule.course, parent_id: n/a]" while parsing /vagrant/odoo/openerp/addons/azizmodule/views/azizmodule.xml:5, near
+[view_id: 617, xml_id: n/a, model: azizmodule.course, parent_id: n/a]" while parsing /vagrant/odoo/openerp/addons/azizmodule/views/azizmodule.xml:5, near
 <record model="ir.ui.view" id="course_form_view">
       <field name="name">course.form</field>
       <field name="model">azizmodule.course</field>
@@ -152,5 +151,6 @@ View `course.form`
         </form>
       </field>
     </record>
-
+2015-11-16 17:54:02,662 3259 INFO odoo2 werkzeug: 10.0.2.2 - - [16/Nov/2015 17:54:02] "POST /web/dataset/call_button HTTP/1.1" 200 -
+2015-11-16 17:54:34,583 3259 INFO odoo2 openerp.modules.loading: loading 1 modules...
 #+END_EXAMPLE
