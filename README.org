@@ -1,4 +1,6 @@
-* Test de création de module dans odoo
+* DONE Redémarrage du serveur
+Le redémarrage du serveur suffit à faire charger le module.
+* DONE Test de création de module dans odoo
 
 En suivant la documentation, la commande ...
 #+BEGIN_SRC sh
@@ -14,7 +16,7 @@ $ pwd
 $ ln -s /home/vagrant/odoo/addons/azizmodule .
 #+END_SRC
 
-* Test de chargement de module dans l'interface de gestion
+* DONE Test de chargement de module dans l'interface de gestion
 
 Arrivé à la rubrique relational fields du tuto, les choses commencent à devenir obscures.
 
